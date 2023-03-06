@@ -1,1 +1,23 @@
-<p>product-list works!</p>
+<div
+  id="ex-product-product-list"
+  class="flex flex-col container mx-auto px-4 rounded-r-lg bg-slate-500"
+>
+  <h2>Product List</h2>
+  <div id="ex-product-product-list-ul" class="flex">
+    <ul class="list-inside list-disc hover:bg-yellow-200" role="list">
+      <li (click)="selectedProduct = 'Webcam'">Webcam</li>
+      <li (click)="selectedProduct = 'Microphone'">Microphone</li>
+      <li (click)="selectedProduct = 'Wireless Keyboard'">Wireless Keyboard</li>
+    </ul>
+  </div>
+</div>
+
+<div id="ex-product-product-detail" *ngIf="selectedProduct">
+  <app-product-detail
+    #ex_product
+    [name]="selectedProduct"
+    (bought)="onBuy($event)"
+  ></app-product-detail>
+
+  <span>new span: {{ex_product.name}}</span>
+</div>
