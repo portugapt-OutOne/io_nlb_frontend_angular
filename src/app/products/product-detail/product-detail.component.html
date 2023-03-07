@@ -1,6 +1,8 @@
-<div id="ex-product-product-detail">
+<div id="ex-product-product-detail" *ngIf="name">
   <h2>Product Details</h2>
   <h3>{{name}}</h3>
   <button (click)="buy()">Buy Now</button>
+  <br>
+  <span>Product Name | Product Detail: {{productName}}</span>
 </div>
 

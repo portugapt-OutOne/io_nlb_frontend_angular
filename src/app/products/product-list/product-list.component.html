@@ -1,23 +1,28 @@
+
 <div
   id="ex-product-product-list"
-  class="flex flex-col container mx-auto px-4 rounded-r-lg bg-slate-500"
+  class="flex flex-col container mx-auto px-4 rounded-r-lg bg-slate-500 max-w-md"
 >
   <h2>Product List</h2>
   <div id="ex-product-product-list-ul" class="flex">
-    <ul class="list-inside list-disc hover:bg-yellow-200" role="list">
-      <li (click)="selectedProduct = 'Webcam'">Webcam</li>
-      <li (click)="selectedProduct = 'Microphone'">Microphone</li>
-      <li (click)="selectedProduct = 'Wireless Keyboard'">Wireless Keyboard</li>
+    <ul class="list-inside list-disc" role="list">
+      <li *ngFor="let product of products; let i=index; trackBy: trackByProducts" (click)="selectedProduct = product" class="hover:bg-yellow-200">{{ i+1 }}. {{product}} </li>
     </ul>
   </div>
 </div>
 
-<div id="ex-product-product-detail" *ngIf="selectedProduct">
+<div id="ex-product-product-detail" *ngIf="selectedProduct; else noProduct">
   <app-product-detail
-    #ex_product
+  #ex_product
     [name]="selectedProduct"
     (bought)="onBuy($event)"
   ></app-product-detail>
 
-  <span>new span: {{ex_product.name}}</span>
+  <span>Product Name | Product List: {{ex_product.name}}</span>
 </div>
+
+<ng-template #noProduct>
+  <div id="ex-product-product-detail-no-product">
+    <p> No Product selected!</p>
+  </div>
+</ng-template>
