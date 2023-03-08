@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Product } from 'src/app/product';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
 
 @Component({
@@ -6,20 +7,32 @@ import { ProductDetailComponent } from '../product-detail/product-detail.compone
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent implements AfterViewInit{
-  selectedProduct = '';
+export class ProductListComponent implements AfterViewInit {
+  selectedProduct: Product | undefined;
 
   @ViewChild(ProductDetailComponent)
   productDetail: ProductDetailComponent | undefined;
 
-  products: string[] = [];
+  products: Product[] = [
+    {
+      name: 'Webcam',
+      price: 100,
+    },
+    {
+      name: 'Microphone',
+      price: 200,
+    },
+    {
+      name: 'Wireless keyboard',
+      price: 85,
+    },
+  ];
 
   ngAfterViewInit(): void {
-    if (this.productDetail) {
-      console.log(`${this.productDetail.name}`);
-    }
-    else {
-      console.log('No Product')
+    if (this.productDetail?.product) {
+      console.log(`${this.productDetail.product.name}`);
+    } else {
+      console.log('No Product');
     }
   }
 
@@ -27,7 +40,7 @@ export class ProductListComponent implements AfterViewInit{
     window.alert(`You just bought ${name}!`);
   }
 
-  trackByProducts(index: number, name: string): string {
-    return name;
+  trackByProducts(index: number, product: Product): string {
+    return product.name;
   }
 }

@@ -2,6 +2,38 @@
     "pipes": [],
     "interfaces": [
         {
+            "name": "Product",
+            "id": "interface-Product-46578589b22a4f8a106b5179245988f30e4ba8c6374ad7b37db6e940d81654f1bcd3919edd5968cca7f6644503bb47714a1c73e6945d205f6a83441f83780f7d",
+            "file": "src/app/product.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "export interface Product {\n  name: string;\n  price: number;\n}\n",
+            "properties": [
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 2
+                },
+                {
+                    "name": "price",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 3
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
             "name": "User",
             "id": "interface-User-9c7e5f1bbbab702cb032307d130876cb68969b0cd4eedef32a0c8cad8081a54e5f8f577ed6ad4539c1b99a1d246cb34031d198c2ea8eba440e64e91b14f01fdc",
             "file": "src/stories/User.ts",
@@ -414,7 +446,7 @@
         },
         {
             "name": "ProductDetailComponent",
-            "id": "component-ProductDetailComponent-e12b634e172b25ab006df6810ada2b3e89d34a7578524dbd2634437f6a19b1c9194768b42e698143e4c2d310b4afd3cc4dcc6aabb4f19f0fefcd256afd9b16ab",
+            "id": "component-ProductDetailComponent-c968db4d77dbc7c802bad3ab48219b611a2baa39e9c38a086d03394495fe0f18ea6bdab289c4f6445f6a95b3b37ea7a89fc0529430f73ae62a72e144ec0bd18d",
             "file": "src/app/products/product-detail/product-detail.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -433,12 +465,11 @@
             "viewProviders": [],
             "inputsClass": [
                 {
-                    "name": "name",
-                    "defaultValue": "''",
+                    "name": "product",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 18,
-                    "type": "string",
+                    "line": 20,
+                    "type": "Product | undefined",
                     "decorators": []
                 }
             ],
@@ -448,7 +479,7 @@
                     "defaultValue": "new EventEmitter<string>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 19,
+                    "line": 21,
                     "type": "EventEmitter"
                 }
             ],
@@ -460,7 +491,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 21,
+                    "line": 23,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -477,7 +508,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 30,
+                    "line": 37,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -500,7 +531,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {\n  Component,\n  Input,\n  Output,\n  EventEmitter,\n  ChangeDetectionStrategy,\n  OnChanges,\n  SimpleChanges,\n} from '@angular/core';\n\n@Component({\n  selector: 'app-product-detail',\n  templateUrl: './product-detail.component.html',\n  styleUrls: ['./product-detail.component.css'],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class ProductDetailComponent implements OnChanges {\n  @Input() name = '';\n  @Output() bought = new EventEmitter<string>();\n\n  buy() {\n    this.bought.emit(this.name);\n  }\n\n  get productName(): string {\n    console.log(`Get ${this.name}`);\n    return this.name;\n  }\n\n  ngOnChanges(changes: SimpleChanges): void {\n    const product = changes['name'];\n    if (!product.isFirstChange()) {\n      const oldValue = product.previousValue;\n      const newValue = product.currentValue;\n      console.log(`Product changed from ${oldValue} to ${newValue}`);\n    }\n  }\n}\n",
+            "sourceCode": "import {\n  Component,\n  Input,\n  Output,\n  EventEmitter,\n  ChangeDetectionStrategy,\n  OnChanges,\n  SimpleChanges,\n} from '@angular/core';\n\nimport { Product } from 'src/app/product';\n\n@Component({\n  selector: 'app-product-detail',\n  templateUrl: './product-detail.component.html',\n  styleUrls: ['./product-detail.component.css'],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class ProductDetailComponent implements OnChanges {\n  @Input() product: Product | undefined;\n  @Output() bought = new EventEmitter<string>();\n\n  buy() {\n    if (this.product) {\n      this.bought.emit(this.product.name);\n    }\n  }\n\n  get productName(): string {\n    if (this.product) {\n      console.log(`Get ${this.product.name}`);\n    return this.product.name;\n    }\n    return 'No Product selected'\n  }\n\n  ngOnChanges(changes: SimpleChanges): void {\n    const product = changes['product'];\n    if (!product.isFirstChange()) {\n      const oldValue = product.previousValue.name;\n      const newValue = product.currentValue.name;\n      console.log(`Product changed from ${oldValue} to ${newValue}`);\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -519,15 +550,15 @@
                         "name": "productName",
                         "type": "string",
                         "returnType": "string",
-                        "line": 25
+                        "line": 29
                     }
                 }
             },
-            "templateData": "<div id=\"ex-product-product-detail\" *ngIf=\"name\">\n  <h2>Product Details</h2>\n  <h3>{{name}}</h3>\n  <button (click)=\"buy()\">Buy Now</button>\n  <br>\n  <span>Product Name | Product Detail: {{productName}}</span>\n</div>\n\n"
+            "templateData": "<div id=\"ex-product-product-detail\" *ngIf=\"product\">\n  <h2>Product Details</h2>\n  <h3>{{product.name}}</h3>\n  <button (click)=\"buy()\">Buy Now</button>\n  <br>\n  <span>Product Name | Product Detail: {{productName}}</span>\n</div>\n\n"
         },
         {
             "name": "ProductListComponent",
-            "id": "component-ProductListComponent-9f87ae46168bed3687ce0d410a5fee829469d3fe9e2507f9e0b9c8d65dc0e796433a405e6f92f796307301326db7f81e99d1bdaa8f909583d47a81307af1df3b",
+            "id": "component-ProductListComponent-7ec116b21257e6e48a7531259bf4359b3b6af142f0a2ee11c31e174017ef896464009c0f52699a0d42d6a26200a90b39d2bcc6fb2a99af822a894890bf09a425",
             "file": "src/app/products/product-list/product-list.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -553,7 +584,7 @@
                     "type": "ProductDetailComponent | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 13,
+                    "line": 14,
                     "decorators": [
                         {
                             "name": "ViewChild",
@@ -563,23 +594,22 @@
                 },
                 {
                     "name": "products",
-                    "defaultValue": "['Webcam', 'Microphone', 'Wireless keyboard']",
+                    "defaultValue": "[\n    {\n      name: 'Webcam',\n      price: 100,\n    },\n    {\n      name: 'Microphone',\n      price: 200,\n    },\n    {\n      name: 'Wireless keyboard',\n      price: 85,\n    },\n  ]",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "[]",
+                    "type": "Product[]",
                     "optional": false,
                     "description": "",
-                    "line": 15
+                    "line": 16
                 },
                 {
                     "name": "selectedProduct",
-                    "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "string",
+                    "type": "Product | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 10
+                    "line": 11
                 }
             ],
             "methodsClass": [
@@ -589,7 +619,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 17,
+                    "line": 31,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -606,13 +636,56 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 26,
+                    "line": 39,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "name",
                             "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "trackByProducts",
+                    "args": [
+                        {
+                            "name": "index",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "product",
+                            "type": "Product",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "string",
+                    "typeParameters": [],
+                    "line": 43,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "index",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "product",
+                            "type": "Product",
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
@@ -629,7 +702,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { AfterViewInit, Component, ViewChild } from '@angular/core';\nimport { ProductDetailComponent } from '../product-detail/product-detail.component';\n\n@Component({\n  selector: 'app-product-list',\n  templateUrl: './product-list.component.html',\n  styleUrls: ['./product-list.component.css'],\n})\nexport class ProductListComponent implements AfterViewInit{\n  selectedProduct = '';\n\n  @ViewChild(ProductDetailComponent)\n  productDetail: ProductDetailComponent | undefined;\n\n  products = ['Webcam', 'Microphone', 'Wireless keyboard'];\n\n  ngAfterViewInit(): void {\n    if (this.productDetail) {\n      console.log(`${this.productDetail.name}`);\n    }\n    else {\n      console.log('No Product')\n    }\n  }\n\n  onBuy(name: string) {\n    window.alert(`You just bought ${name}!`);\n  }\n}\n",
+            "sourceCode": "import { AfterViewInit, Component, ViewChild } from '@angular/core';\nimport { Product } from 'src/app/product';\nimport { ProductDetailComponent } from '../product-detail/product-detail.component';\n\n@Component({\n  selector: 'app-product-list',\n  templateUrl: './product-list.component.html',\n  styleUrls: ['./product-list.component.css'],\n})\nexport class ProductListComponent implements AfterViewInit {\n  selectedProduct: Product | undefined;\n\n  @ViewChild(ProductDetailComponent)\n  productDetail: ProductDetailComponent | undefined;\n\n  products: Product[] = [\n    {\n      name: 'Webcam',\n      price: 100,\n    },\n    {\n      name: 'Microphone',\n      price: 200,\n    },\n    {\n      name: 'Wireless keyboard',\n      price: 85,\n    },\n  ];\n\n  ngAfterViewInit(): void {\n    if (this.productDetail?.product) {\n      console.log(`${this.productDetail.product.name}`);\n    } else {\n      console.log('No Product');\n    }\n  }\n\n  onBuy(name: string) {\n    window.alert(`You just bought ${name}!`);\n  }\n\n  trackByProducts(index: number, product: Product): string {\n    return product.name;\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -641,7 +714,7 @@
             "implements": [
                 "AfterViewInit"
             ],
-            "templateData": "\n<div\n  id=\"ex-product-product-list\"\n  class=\"flex flex-col container mx-auto px-4 rounded-r-lg bg-slate-500\"\n>\n  <h2>Product List</h2>\n  <div id=\"ex-product-product-list-ul\" class=\"flex\">\n    <ul class=\"list-inside list-disc\" role=\"list\">\n      <li *ngFor=\"let product of products\" (click)=\"selectedProduct = product\" class=\"hover:bg-yellow-200\"> {{product}} </li>\n    </ul>\n  </div>\n</div>\n\n<div id=\"ex-product-product-detail\" *ngIf=\"selectedProduct; else noProduct\">\n  <app-product-detail\n  #ex_product\n    [name]=\"selectedProduct\"\n    (bought)=\"onBuy($event)\"\n  ></app-product-detail>\n\n  <span>Product Name | Product List: {{ex_product.name}}</span>\n</div>\n\n<ng-template #noProduct>\n  <div id=\"ex-product-product-detail-no-product\">\n    <p> No Product selected!</p>\n  </div>\n</ng-template>\n"
+            "templateData": "\n<div\n  id=\"ex-product-product-list\"\n  class=\"flex flex-col container mx-auto px-4 rounded-r-lg bg-slate-500 max-w-md\"\n>\n  <h2>Product List</h2>\n  <div id=\"ex-product-product-list-ul\" class=\"flex\">\n    <ul class=\"list-inside list-disc\" role=\"list\">\n      <li *ngFor=\"let product of products; let i=index; trackBy: trackByProducts\" (click)=\"selectedProduct = product\" class=\"hover:bg-yellow-200\">{{ i+1 }}. {{product.name | uppercase}} </li>\n    </ul>\n  </div>\n</div>\n\n<div id=\"ex-product-product-detail\" *ngIf=\"selectedProduct; else noProduct\">\n  <app-product-detail\n    #ex_product\n    [product]=\"selectedProduct\"\n    (bought)=\"onBuy($event)\"\n  ></app-product-detail>\n\n  <span>Product Name | Product List: {{ex_product.product?.name}}</span>\n</div>\n\n<ng-template #noProduct>\n  <div id=\"ex-product-product-detail-no-product\">\n    <p> No Product selected!</p>\n  </div>\n</ng-template>\n"
         }
     ],
     "modules": [
@@ -738,13 +811,13 @@
         },
         {
             "name": "ProductsModule",
-            "id": "module-ProductsModule-879a18f79e4646c8cbbb571222f06c5a843e64953ec7517c8f505462449100c14c22db604468fd1a9c935888d5bcf3070a35625147096f4c126ce51773e11a55",
+            "id": "module-ProductsModule-6b91303b314fa868eb698f37c0597b37ee5c3b0bb242d2a43643217e9b9b024b17c0dede4c5019f34ae16acf3bc91b53b5ea13e39ca0f3264cd383a86a0a1022",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/products/products.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ProductListComponent } from './product-list/product-list.component';\nimport { ProductDetailComponent } from './product-detail/product-detail.component';\n\n\n\n@NgModule({\n  declarations: [\n    ProductListComponent,\n    ProductDetailComponent\n  ],\n  imports: [\n    CommonModule,\n  ],\n  exports: [\n    ProductListComponent,\n  ]\n})\nexport class ProductsModule { }\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { ProductListComponent } from './product-list/product-list.component';\nimport { ProductDetailComponent } from './product-detail/product-detail.component';\n\n\n\n@NgModule({\n  declarations: [\n    ProductListComponent,\n    ProductDetailComponent,\n  ],\n  imports: [\n    CommonModule,\n  ],\n  exports: [\n    ProductListComponent,\n  ]\n})\nexport class ProductsModule { }\n",
             "children": [
                 {
                     "type": "providers",
@@ -857,6 +930,16 @@
                 "defaultValue": "Template.bind({})"
             },
             {
+                "name": "ProductSelected",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/products/product-list/product-list.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
                 "name": "Secondary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -915,6 +998,16 @@
                 "deprecationMessage": "",
                 "type": "Story<ProductListComponent>",
                 "defaultValue": "(args: ProductListComponent) => ({\n  props: args,\n})"
+            },
+            {
+                "name": "WithProducts",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/products/product-list/product-list.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             }
         ],
         "functions": [],
@@ -1049,6 +1142,16 @@
                     "defaultValue": "Template.bind({})"
                 },
                 {
+                    "name": "ProductSelected",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/products/product-list/product-list.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
@@ -1057,6 +1160,16 @@
                     "deprecationMessage": "",
                     "type": "Story<ProductListComponent>",
                     "defaultValue": "(args: ProductListComponent) => ({\n  props: args,\n})"
+                },
+                {
+                    "name": "WithProducts",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/products/product-list/product-list.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
                 }
             ]
         },
@@ -1088,6 +1201,15 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/product.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "Product",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/products/product-detail/product-detail.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -1102,7 +1224,7 @@
                 "linktype": "component",
                 "name": "ProductListComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -1120,7 +1242,27 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "ProductSelected",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/products/product-list/product-list.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/products/product-list/product-list.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithProducts",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

@@ -1,8 +1,7 @@
-<div id="ex-product-product-detail" *ngIf="name">
-  <h2>Product Details</h2>
-  <h3>{{name}}</h3>
-  <button (click)="buy()">Buy Now</button>
+<div id="ex-product-product-detail" *ngIf="product">
+  <h2 class="h2">Product Details</h2>
+  <h3>{{product.name}}</h3>
+  <button class="bg-clip-padding px-2 py-1 border-2 bg-gray-400" (click)="buy()">Buy Now</button>
   <br>
   <span>Product Name | Product Detail: {{productName}}</span>
 </div>
-

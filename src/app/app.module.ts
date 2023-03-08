@@ -4,10 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ComponentComponent } from './Components/component/component.component';
 import { ProductsModule } from './products/products.module';
+import { CopyrightDirective } from './copyright.directive';
+import { NumericDirective } from './numeric.directive';
 
 
 @NgModule({
-  declarations: [AppComponent, ComponentComponent],
+  declarations: [AppComponent, ComponentComponent, CopyrightDirective, NumericDirective],
   imports: [BrowserModule, ProductsModule],
   providers: [],
   bootstrap: [AppComponent],
