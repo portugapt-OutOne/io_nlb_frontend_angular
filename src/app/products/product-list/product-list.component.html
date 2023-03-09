@@ -1,33 +1,60 @@
-
-<div
-  id="ex-product-product-list"
-  class="flex flex-col container mx-auto px-4 rounded-r-lg bg-slate-500 max-w-md"
->
-  <h2>Product List</h2>
-  <div id="ex-product-product-list-ul" class="flex">
-    <ul class="list-inside list-disc" role="list">
-      <li *ngFor="let product of products | sort; let i=index; trackBy: trackByProducts" (click)="selectedProduct = product" class="hover:bg-yellow-200">{{ i+1 }}. {{product | json}} </li>
-    </ul>
+<div class="flex flex-col flex-nowrap container place-items-start space-x-2">
+  <div
+    id="ex-product-product-list"
+    class="mx-auto px-4 rounded-r-lg bg-slate-500"
+  >
+    <h2>Product List</h2>
+    <div id="ex-product-product-list-ul" class="">
+      <ul class="list-inside list-disc" role="list">
+        <li
+          *ngFor="
+            let product of products | sort;
+            let i = index;
+            trackBy: trackByProducts
+          "
+          (click)="selectedProduct = product"
+          class="hover:bg-yellow-200"
+        >
+          <app-product-view [id]="i"></app-product-view>
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
 
-<div id="ex-product-product-detail" *ngIf="selectedProduct; else noProduct">
-  <app-product-detail
-    #ex_product
-    [product]="selectedProduct"
-    (bought)="onBuy($event)"
-  ></app-product-detail>
+  <div
+    class="flex flex-col mx-auto px-2 py-1 border-2 space-y-6 bg-gray-400"
+    id="ex-product-product-detail"
+    *ngIf="selectedProduct; else noProduct"
+  >
+    <app-product-detail
+      #ex_product
+      [product]="selectedProduct"
+      (bought)="onBuy($event)"
+    ></app-product-detail>
 
-  <span>Product Name | Product List: {{ex_product.product?.name}}</span>
-</div>
-
-<ng-template #noProduct>
-  <div id="ex-product-product-detail-no-product">
-    <p> No Product selected!</p>
+    <span>Product Name | Product List: {{ ex_product.product?.name }}</span>
   </div>
-</ng-template>
 
-<div id="ex-product-product-offers" *appPermission="['agent']">
-<h3>Offers</h3>
-<ng-template appProductHost></ng-template>
+  <ng-template #noProduct>
+    <div
+      class="flex flex-col mx-auto px-2 py-1 border-2 bg-gray-400"
+      id="ex-product-product-detail-no-product"
+    >
+      <p>No Product selected!</p>
+    </div>
+  </ng-template>
+
+  <div
+    class="flex flex-col mx-auto px-2 py-3 border-2 bg-gray-400"
+    id="ex-product-product-offers"
+    *appPermission="['agent']"
+  >
+    <h3>Offers</h3>
+    <ng-template appProductHost></ng-template>
+  </div>
+
+  <div class="flex flex-col" id="ex-product-product-favorites">
+    <h2>Favorites</h2>
+    <app-favorites></app-favorites>
+  </div>
 </div>

@@ -7,8 +7,9 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { Product } from '../product';
 
-import { Product } from 'src/app/product';
+
 
 @Component({
   selector: 'app-product-detail',
