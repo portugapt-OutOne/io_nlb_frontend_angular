@@ -6,10 +6,11 @@ import { ComponentComponent } from './Components/component/component.component';
 import { ProductsModule } from './products/products.module';
 import { CopyrightDirective } from './copyright.directive';
 import { NumericDirective } from './numeric.directive';
+import { KeyLoggerComponent } from './key-logger/key-logger.component';
 
 
 @NgModule({
-  declarations: [AppComponent, ComponentComponent, CopyrightDirective, NumericDirective],
+  declarations: [AppComponent, ComponentComponent, CopyrightDirective, NumericDirective, KeyLoggerComponent],
   imports: [BrowserModule, ProductsModule],
   providers: [],
   bootstrap: [AppComponent],

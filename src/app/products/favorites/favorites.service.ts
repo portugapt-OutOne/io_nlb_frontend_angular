@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProductsService } from '../products.service';
 import { Product } from '../product';
 import { ProductViewService } from '../product-view/product-view.service';
+import { map, take, Observable } from 'rxjs';
 
 @Injectable({
 providedIn: 'root'
@@ -12,8 +13,10 @@ export class FavoritesService extends ProductsService {
     super();
   }
 
-  override getProducts(): Product[] {
+  override getProducts(): Observable<Product[]> {
 
-    return super.getProducts().slice(0, 2)
+    return super.getProducts().pipe(
+      map(products => products.slice(1,3))
+    )
   }
 }

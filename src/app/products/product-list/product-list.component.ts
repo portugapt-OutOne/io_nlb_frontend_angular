@@ -10,7 +10,6 @@ import { ProductsService } from '../products.service';
   providers: [ProductsService],
 })
 export class ProductListComponent implements OnInit, AfterViewInit {
-
   selectedProduct: Product | undefined;
 
   @ViewChild(ProductDetailComponent)
@@ -20,6 +19,14 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
   constructor(private productService: ProductsService) {}
 
+  /** Services */
+  private getProducts(): void {
+    this.productService.getProducts().subscribe((products) => {
+      this.products = products;
+    });
+  }
+
+  /** Component Modifiers */
   ngAfterViewInit(): void {
     if (this.productDetail?.product) {
       console.log(`${this.productDetail.product.name}`);
@@ -29,14 +36,16 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.products = this.productService.getProducts();
+    this.getProducts()
   }
 
-  onBuy(name: string) {
-    window.alert(`You just bought ${name}!`);
-  }
-
+  /** Directives */
   trackByProducts(index: number, product: Product): string {
     return product.name;
+  }
+
+  /** Functionality */
+  onBuy(name: string) {
+    window.alert(`You just bought ${name}!`);
   }
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { ProductsService } from '../products.service';
-import { FavoritesService } from './favorites.service';
 import { favoritesFactory } from './favorites';
 import { ProductViewService } from '../product-view/product-view.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-favorites',
@@ -20,8 +20,15 @@ export class FavoritesComponent implements OnInit {
   products: Product[] = [];
   constructor(private productService: ProductsService) { }
 
+  private getProducts(): void {
+    this.productService.getProducts().subscribe((products) => {
+      this.products = products;
+    });
+  }
+
+  /** Component Modifiers */
   ngOnInit(): void {
-    this.products = this.productService.getProducts();
+    this.getProducts();
     }
 
 }

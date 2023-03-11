@@ -16,11 +16,18 @@ export class ProductViewComponent implements OnInit {
 
   constructor(private productviewService: ProductViewService) {}
 
+  /** Services */
+  private getProduct() {
+    this.productviewService.getProduct(this.id).subscribe(product => {
+      if (product) {
+        this.name = product.name;
+        this.price = product.price
+      }
+    });
+  }
+
+  /** Component Modifiers */
   ngOnInit(): void {
-    const product = this.productviewService.getProduct(this.id);
-    if (product) {
-      this.name = product.name;
-      this.price = product.price
-    }
+    this.getProduct();
   }
 }

@@ -8,8 +8,6 @@ import { PermissionDirective } from '../permission.directive';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { ProductViewComponent } from './product-view/product-view.component';
 
-
-
 @NgModule({
   declarations: [
     ProductListComponent,
@@ -19,12 +17,7 @@ import { ProductViewComponent } from './product-view/product-view.component';
     FavoritesComponent,
     ProductViewComponent,
   ],
-  imports: [
-    CommonModule,
-    PermissionDirective
-  ],
-  exports: [
-    ProductListComponent,
-  ]
+  imports: [CommonModule, PermissionDirective],
+  exports: [ProductListComponent],
 })
-export class ProductsModule { }
+export class ProductsModule {}
