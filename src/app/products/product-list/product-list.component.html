@@ -15,7 +15,7 @@
           (click)="selectedProduct = product"
           class="hover:bg-yellow-200"
         >
-          <app-product-view [id]="i"></app-product-view>
+          {{ product.name }}
         </li>
       </ul>
     </div>
@@ -51,10 +51,5 @@
   >
     <h3>Offers</h3>
     <ng-template appProductHost></ng-template>
-  </div>
-
-  <div class="flex flex-col" id="ex-product-product-favorites">
-    <h2>Favorites</h2>
-    <app-favorites></app-favorites>
   </div>
 </div>

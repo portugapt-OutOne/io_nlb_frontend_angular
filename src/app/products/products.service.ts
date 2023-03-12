@@ -1,32 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable, of } from 'rxjs';
 import { Product } from './product';
+
+interface ProductDTO {
+  title: string;
+  price: number;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  constructor() {}
+  private productsUrl = 'https://fakestoreapi.com/products';
 
-  private products: Product[] = [{
-        name: 'Webcam',
-        price: 100,
-      },
-      {
-        name: 'Microphone',
-        price: 200,
-      },
-      {
-        name: 'Wireless keyboard',
-        price: 85,
-      },
-      {
-        name: 'Wireless keyboard 2',
-        price: 85,
-      },
-    ];
+  constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    return of(this.products);
+    return this.http.get<ProductDTO[]>(this.productsUrl).pipe(
+      map((products) =>
+        products.map((product) => {
+          return {
+            name: product.title,
+            price: product.price,
+          };
+        })
+      )
+    );
   }
 }

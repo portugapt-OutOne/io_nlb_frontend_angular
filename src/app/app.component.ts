@@ -1,6 +1,6 @@
 import { Component, OnDestroy, Inject } from '@angular/core';
 import { APP_CONFIG, appSettings, AppConfig } from './app.config';
-import { from, Observable } from 'rxjs';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-root',
