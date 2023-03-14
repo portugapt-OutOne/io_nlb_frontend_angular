@@ -1,7 +1,12 @@
-<h1 class="text-3xl font-bold underline">{{ title }}</h1>
+<div class="flex flex-col">
+  <div class="pb-10">
+    <h1 class="text-3xl font-bold underline">{{ title }}</h1>
+  </div>
+  <div class="flex flex-row justify-center">
+    <div class="pr-10">
+      <app-key-logger></app-key-logger>
+    </div>
+  <app-product-list></app-product-list>
 
-<div>
-  <app-key-logger></app-key-logger>
+  </div>
 </div>
-
-<app-product-list></app-product-list>

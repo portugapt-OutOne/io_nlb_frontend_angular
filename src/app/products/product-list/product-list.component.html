@@ -1,17 +1,13 @@
-<div class="flex flex-col flex-nowrap container place-items-start space-x-2">
-  <div
-    id="ex-product-product-list"
-    class="mx-auto px-4 rounded-r bg-slate-500"
-  >
+<div class="flex flex-col justify-items-start">
+  <div>
+    <app-product-create (added)="onAdd($event)"></app-product-create>
+  </div>
+  <div id="ex-product-product-list" class="mx-auto px-4 rounded-r bg-slate-500">
     <h2>Product List</h2>
     <div id="ex-product-product-list-ul" class="">
       <ul class="list-inside list-disc" role="list">
         <li
-          *ngFor="
-            let product of (products$ | async)! | sort;
-            let i = index;
-            trackBy: trackByProducts
-          "
+          *ngFor="let product of products | sort; let i = index"
           (click)="selectedProduct = product"
           class="hover:bg-yellow-200"
         >
@@ -22,14 +18,14 @@
   </div>
 
   <div
-    class="flex flex-col mx-auto px-2 py-1 border-2 space-y-6 bg-gray-400"
+    class="mx-auto px-2 py-1 border-2 space-y-6 bg-gray-400"
     id="ex-product-product-detail"
     *ngIf="selectedProduct; else noProduct"
   >
     <app-product-detail
       #ex_product
       [id]="selectedProduct.id"
-      (bought)="onBuy($event)"
+      (bought)="onBuy()"
     ></app-product-detail>
 
     <span>Product Name | Product List: {{ ex_product.product?.name }}</span>
@@ -37,7 +33,7 @@
 
   <ng-template #noProduct>
     <div
-      class="flex flex-col mx-auto px-2 py-1 border-2 bg-gray-400"
+      class="mx-auto px-2 py-1 border-2 bg-gray-400"
       id="ex-product-product-detail-no-product"
     >
       <p>No Product selected!</p>
@@ -45,7 +41,7 @@
   </ng-template>
 
   <div
-    class="flex flex-col mx-auto px-2 py-3 border-2 bg-gray-400"
+    class="mx-auto px-2 py-3 border-2 bg-gray-400"
     id="ex-product-product-offers"
     *appPermission="['agent']"
   >
