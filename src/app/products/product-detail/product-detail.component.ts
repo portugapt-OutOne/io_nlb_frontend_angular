@@ -8,7 +8,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Product } from '../product';
-
+import { Observable } from 'rxjs';
+import { ProductsService } from '../products.service';
 
 
 @Component({
@@ -18,8 +19,14 @@ import { Product } from '../product';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductDetailComponent implements OnChanges {
-  @Input() product: Product | undefined;
-  @Output() bought = new EventEmitter<string>();
+  @Input()
+  product: Product | undefined;
+
+  @Output()
+  bought = new EventEmitter<string>();
+
+  @Input() id = -1;
+  product$: Observable<Product> | undefined;
 
   buy() {
     if (this.product) {
@@ -35,12 +42,9 @@ export class ProductDetailComponent implements OnChanges {
     return 'No Product selected'
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    const product = changes['product'];
-    if (!product.isFirstChange()) {
-      const oldValue = product.previousValue.name;
-      const newValue = product.currentValue.name;
-      console.log(`Product changed from ${oldValue} to ${newValue}`);
-    }
+  ngOnChanges(): void {
+    this.product$ = this.productService.getProduct(this.id);
   }
+
+  constructor(private productService: ProductsService) { }
 }
