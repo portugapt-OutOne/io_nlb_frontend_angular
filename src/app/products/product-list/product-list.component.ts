@@ -11,10 +11,8 @@ import { Subscription, Observable } from 'rxjs';
   providers: [ProductsService],
 })
 export class ProductListComponent implements OnInit {
-
   selectedProduct: Product | undefined;
   products: Product[] = [];
-  constructor(private productService: ProductsService) {}
 
   ngOnInit(): void {
     this.getProducts();
@@ -24,13 +22,15 @@ export class ProductListComponent implements OnInit {
     window.alert(`You just bought ${this.selectedProduct?.name}!`);
   }
 
+  onAdd(product: Product) {
+    this.products.push(product);
+  }
+
   private getProducts() {
     this.productService.getProducts().subscribe((products) => {
       this.products = products;
     });
   }
 
-  onAdd(product: Product) {
-    this.products.push(product);
-    }
+  constructor(private productService: ProductsService) {}
 }

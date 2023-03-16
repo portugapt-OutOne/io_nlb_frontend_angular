@@ -1,8 +1,19 @@
 <div id="ex-product-product-detail" *ngIf="product$ | async as product">
   <h2 class="h2">Product Details</h2>
-  <p>{{product.name}}</p>
-  <p>€{{product.price}}</p>
-  <button class="bg-clip-padding px-2 py-1 border-2 bg-gray-400" (click)="buy()">Buy Now</button>
-  <br>
-  <span>Product Name | Product Detail: {{productName}}</span>
+  <div>
+    <p>{{ product.name }}</p>
+    <p>{{ product.price | currency: "EUR" }}</p>
+  </div>
+  <div>
+    <input placeholder="New price" #price />
+    <button (click)="changePrice(product, price.valueAsNumber)">Change</button>
+  </div>
+  <button
+    class="bg-clip-padding px-2 py-1 border-2 bg-gray-400"
+    (click)="buy()"
+  >
+    Buy Now
+  </button>
+  <br />
+  <span>Product Name | Product Detail: {{ productName }}</span>
 </div>
