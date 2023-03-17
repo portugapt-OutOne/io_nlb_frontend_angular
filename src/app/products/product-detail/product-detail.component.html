@@ -5,15 +5,29 @@
     <p>{{ product.price | currency: "EUR" }}</p>
   </div>
   <div>
-    <input placeholder="New price" #price />
-    <button (click)="changePrice(product, price.valueAsNumber)">Change</button>
+    <form #priceForm="ngForm" (ngSubmit)="changePrice(product, price.value)">
+      <input
+        placeholder="New price"
+        #price="ngModel"
+        type="number"
+        step="0.01"
+        pattern="^\d+(\.\d{1,2})?$"
+        name="price"
+        ngModel
+        required
+      />
+      <button type="submit" [disabled]="priceForm.invalid">Change</button>
+    </form>
   </div>
-  <button
-    class="bg-clip-padding px-2 py-1 border-2 bg-gray-400"
-    (click)="buy()"
-  >
-    Buy Now
-  </button>
+  <div>
+    <button
+      *ngIf="authService.isLoggedIn"
+      (click)="buy(product)"
+      class="bg-clip-padding px-2 py-1 border-2 bg-gray-400"
+    >
+      Buy Now
+    </button>
+  </div>
   <br />
   <span>Product Name | Product Detail: {{ productName }}</span>
 </div>
