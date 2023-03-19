@@ -1,8 +1,10 @@
 <button
 [hidden]="authService.isLoggedIn"
 (click)="authService.login().subscribe()"
+class="rounded-full"
 >Login</button>
 <button
 [hidden]="!authService.isLoggedIn"
 (click)="authService.logout()"
+class= "rounded-full"
 >Logout</button>

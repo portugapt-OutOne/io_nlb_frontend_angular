@@ -3,11 +3,13 @@ import {
   Input,
   Output,
   EventEmitter,
-  ChangeDetectionStrategy,
+  OnInit,
   OnChanges,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { Product } from '../product';
-import { Observable } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 import { ProductsService } from '../products.service';
 import { AuthService } from '../../auth/auth.service';
 
@@ -16,7 +18,7 @@ import { AuthService } from '../../auth/auth.service';
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css'],
 })
-export class ProductDetailComponent implements OnChanges {
+export class ProductDetailComponent implements OnInit, OnChanges {
   @Input()
   product: Product | undefined;
 
@@ -27,12 +29,32 @@ export class ProductDetailComponent implements OnChanges {
   bought = new EventEmitter<string>();
 
   constructor(
+    public authService: AuthService,
     private productService: ProductsService,
-    public authService: AuthService
+    private route: ActivatedRoute
   ) {}
 
   ngOnChanges(): void {
-    this.product$ = this.productService.getProduct(this.id);
+    this.product$ = this.route.paramMap.pipe(
+      switchMap((params) => {
+        return this.productService.getProduct(Number(params.get('id')));
+      })
+    );
+  }
+
+  ngOnInit(): void {
+    this.product$ = this.route.data.pipe(
+      switchMap((data) => of(data['product']))
+    );
+
+    // const id = this.route.snapshot.params['id'];
+    // this.product$ = this.productService.getProduct(id);
+
+    // this.product$ = this.route.paramMap.pipe(
+    //   switchMap((params) => {
+    //     return this.productService.getProduct(Number(params.get('id')));
+    //   })
+    // );
   }
 
   buy(product: Product) {

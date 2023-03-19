@@ -1,14 +1,5 @@
-<div class="flex flex-col">
-  <div class="flex flex-row justify-between pb-10 pr-16 pt-5">
-    <h1 class="text-3xl font-bold underline">{{ title }}</h1>
-    <app-auth></app-auth>
-  </div>
-  <div class="flex flex-row justify-center">
-    <div class="pr-10">
-      <app-key-logger></app-key-logger>
-    </div>
-  <app-product-list></app-product-list>
-
-
-  </div>
-</div>
+<app-key-logger></app-key-logger>
+<app-auth></app-auth>
+<a routerLink="/products" routerLinkActive="outline indigo-300">Products</a>
+<a routerLink="/cart">Cart</a>
+<router-outlet></router-outlet>

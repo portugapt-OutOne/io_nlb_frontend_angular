@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 
@@ -15,14 +14,29 @@ import { CopyrightDirective } from './copyright.directive';
 import { NumericDirective } from './numeric.directive';
 
 import { AuthInterceptor } from './auth/auth.interceptor';
-
+import { AppRoutingModule } from './app-routing.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
-  declarations: [AppComponent, ComponentComponent, CopyrightDirective, NumericDirective, KeyLoggerComponent],
-  imports: [BrowserModule, ProductsModule, HttpClientModule, AuthModule, FormsModule],
+  declarations: [
+    AppComponent,
+    ComponentComponent,
+    CopyrightDirective,
+    NumericDirective,
+    KeyLoggerComponent,
+    PageNotFoundComponent,
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AuthModule,
+    FormsModule,
+    ProductsModule,
+    AppRoutingModule
+  ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
