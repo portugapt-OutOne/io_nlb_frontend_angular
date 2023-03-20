@@ -9,6 +9,7 @@ import { checkoutGuard } from './checkout.guard';
 
 const routes: Routes = [
   { path: 'cart', component: CartComponent, canActivate: [authGuard], canDeactivate: [checkoutGuard]},
+  { path: 'about', loadComponent: () => import('./about/about-info/about-info.component').then(m => m.AboutInfoComponent), canLoad: [authGuard] },
   { path: '**', component: PageNotFoundComponent }
   ];
 

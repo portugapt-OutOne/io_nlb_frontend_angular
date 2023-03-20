@@ -28,6 +28,8 @@ export class ProductDetailComponent implements OnInit, OnChanges {
   @Output()
   bought = new EventEmitter<string>();
 
+  price: number | undefined;
+
   constructor(
     public authService: AuthService,
     private productService: ProductsService,
@@ -64,10 +66,9 @@ export class ProductDetailComponent implements OnInit, OnChanges {
     });
   }
 
-  changePrice(product: Product, price: string) {
-    const priceAsNumber = parseFloat(price);
+  changePrice(product: Product, price: number) {
     this.productService
-      .updateProduct(product.id, priceAsNumber)
+      .updateProduct(product.id, price)
       .subscribe(() => {
         alert(`The price of ${product.name} was changed!`);
       });

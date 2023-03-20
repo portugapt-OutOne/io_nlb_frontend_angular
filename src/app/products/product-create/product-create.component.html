@@ -1,15 +1,30 @@
 <div class="grid grid-cols-2 gap-2 p-2">
-  <div>
-    <label for="name">Name</label>
-    <input id="name" #name />
-  </div>
-  <div>
-    <label for="price">Price</label>
-    <input id="price" #price />
-  </div>
-  <div>
-    <button (click)="createProduct(name.value, price.valueAsNumber)">
-      Create
-    </button>
-  </div>
+  <form [formGroup]="productForm" (ngSubmit)="createProduct()">
+    <div>
+      <label for="name">Name</label>
+      <input
+        id="name"
+        formControlName="name"
+        required
+        class="border px-4 py-2"
+      />
+      <span *ngIf="name.touched && name.invalid"> The name is not valid </span>
+    </div>
+    <div>
+      <label for="price">Price</label>
+      <input id="price" formControlName="price" required />
+      <span *ngIf="price.touched && price.hasError('outOfRange')">
+        The price is out of range
+      </span>
+      <span *ngIf="price.touched && price.hasError('required')">
+        The price is required
+      </span>
+      <span *ngIf="price.touched && price.hasError('min')">
+        The price should be greater than 1
+        </span>
+    </div>
+    <div>
+      <button type="submit" [disabled]="productForm.invalid">Create</button>
+    </div>
+  </form>
 </div>

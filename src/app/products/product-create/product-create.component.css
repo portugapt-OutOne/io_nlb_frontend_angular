@@ -1,13 +1,23 @@
+@tailwind components;
+
 input {
   font-size: 14px;
   border-radius: 4px;
   padding: 8px;
   margin-bottom: 16px;
-  border: 1px solid #BDBDBD;
-  }
-  label {
+  border: 1px solid #bdbdbd;
+}
+label {
   font-size: 12px;
   font-weight: bold;
   margin-bottom: 4px;
   display: block;
-  }
+}
+
+input.ng-dirty.ng-valid {
+  @apply border-green-600 px-2 hover:capitalize hover:text-center;
+}
+
+input.ng-dirty.ng-invalid {
+  @apply border-red-700;
+}

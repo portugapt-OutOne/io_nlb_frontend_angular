@@ -13,7 +13,7 @@ interface ProductDTO {
   providedIn: 'root',
 })
 export class ProductsService {
-  private productsUrl = 'https://fakestoreapi.com/products';
+  private productsUrl = 'http://localhost:3000/products';
 
   private convertToProduct(product: ProductDTO): Product {
     return {
@@ -39,7 +39,8 @@ export class ProductsService {
     );
   }
 
-  addProduct(name: string, price: number): Observable<Product> {
+  addProduct(name: string, price: number | undefined): Observable<Product> {
+    console.log(`this price: ${price}`)
     return this.http
       .post<ProductDTO>(this.productsUrl, {
         title: name,
