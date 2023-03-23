@@ -18,11 +18,19 @@ export class AuthService {
    * Make an API request to authenticate the user and store the received token.
    * @returns {Observable<string>} The observable of the authentication token.
    */
+  register(): Observable<string> {
+    return this.http.post<string>('http://localhost:3000/register', {
+      "email": "email@email.com",
+      "password": "password"
+    })
+    .pipe(tap((token) => (this.token = token)));
+  }
+
   login(): Observable<string> {
     return this.http
-      .post<string>('https://fakestoreapi.com/auth/login', {
-        username: 'david_r',
-        password: '3478*#54',
+      .post<string>('http://localhost:3000/login', {
+        email: 'email@email.com',
+        password: 'password',
       })
       .pipe(tap((token) => (this.token = token)));
   }

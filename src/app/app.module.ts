@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
@@ -16,11 +17,13 @@ import { NumericDirective } from './numeric.directive';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CartComponent } from './cart/cart.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    CartComponent,
     ComponentComponent,
     CopyrightDirective,
     NumericDirective,
@@ -32,8 +35,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     HttpClientModule,
     AuthModule,
     FormsModule,
+    ReactiveFormsModule,
     ProductsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CommonModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
