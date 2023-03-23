@@ -21,7 +21,10 @@
       </span>
       <span *ngIf="price.touched && price.hasError('min')">
         The price should be greater than 1
-        </span>
+      </span>
+      <span *ngIf="showPriceRangeHint">
+        Price should be between 1 and 10000
+      </span>
     </div>
     <div>
       <button type="submit" [disabled]="productForm.invalid">Create</button>

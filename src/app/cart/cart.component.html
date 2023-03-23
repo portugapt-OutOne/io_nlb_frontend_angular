@@ -7,5 +7,6 @@
   >
     <label>{{ cart[i].name }}</label>
     <input type="number" [formControlName]="i" class="px-3"/>
+    <button (click)="increaseQuantityByOne(i)">Increase Quantity by One</button>
   </div>
 </div>

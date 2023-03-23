@@ -17,6 +17,10 @@ export class CartComponent implements OnInit {
 
   cart: Product[] = [];
 
+  get products() {
+    return this.cartForm.controls.products;
+  }
+
   constructor(
     private cartService: CartService,
     private formBuilder: FormBuilder
@@ -29,5 +33,12 @@ export class CartComponent implements OnInit {
         this.formBuilder.control<number>(1, Validators.required)
       );
     });
+  }
+
+  increaseQuantityByOne(index: number): void {
+    let temp_hold: number | null =  this.products.at(index).value;
+    if (temp_hold) {
+      this.cartForm.controls.products.at(index).patchValue(temp_hold + 1);
+    }
   }
 }
