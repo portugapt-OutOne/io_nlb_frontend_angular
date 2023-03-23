@@ -1,33 +1,34 @@
 <div class="grid grid-cols-2 gap-2 p-2">
   <form [formGroup]="productForm" (ngSubmit)="createProduct()">
     <div>
-      <label for="name">Name</label>
-      <input
-        id="name"
-        formControlName="name"
-        required
-        class="border px-4 py-2"
-      />
-      <span *ngIf="name.touched && name.invalid"> The name is not valid </span>
+      <mat-form-field>
+        <mat-autocomplete #productsAuto="matAutocomplete">
+          <mat-option *ngFor="let product of products$ | async" [value]="product.name">
+            {{ product.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <input formControlName="name" placeholder="Name" [matAutocomplete]="productsAuto" required matInput />
+        <mat-error>The name is not valid</mat-error>
+      </mat-form-field>
     </div>
     <div>
-      <label for="price">Price</label>
-      <input id="price" formControlName="price" required />
-      <span *ngIf="price.touched && price.hasError('outOfRange')">
-        The price is out of range
-      </span>
-      <span *ngIf="price.touched && price.hasError('required')">
-        The price is required
-      </span>
-      <span *ngIf="price.touched && price.hasError('min')">
-        The price should be greater than 1
-      </span>
-      <span *ngIf="showPriceRangeHint">
-        Price should be between 1 and 10000
-      </span>
+      <mat-form-field>
+        <input formControlName="price" placeholder="Price" required matInput />
+        <mat-error>The price is required</mat-error>
+        <mat-hint> Price should be between 1 and 10000 </mat-hint>
+      </mat-form-field>
     </div>
     <div>
-      <button type="submit" [disabled]="productForm.invalid">Create</button>
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!productForm.valid"
+        >
+          Create
+        </button>
+      </div>
     </div>
   </form>
 </div>

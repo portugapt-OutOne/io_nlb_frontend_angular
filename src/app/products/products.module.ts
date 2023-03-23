@@ -15,6 +15,12 @@ import { SortPipe } from '../sort.pipe';
 import { ProductHostDirective } from './product-host.directive';
 import { PermissionDirective } from '../permission.directive';
 
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
+
 @NgModule({
   declarations: [
     ProductListComponent,
@@ -31,6 +37,10 @@ import { PermissionDirective } from '../permission.directive';
     ReactiveFormsModule,
     PermissionDirective,
     ProductsRoutingModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
   ],
   exports: [ProductListComponent, ProductDetailComponent],
 })
