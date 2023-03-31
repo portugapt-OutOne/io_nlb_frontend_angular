@@ -3,11 +3,20 @@
     <div>
       <mat-form-field>
         <mat-autocomplete #productsAuto="matAutocomplete">
-          <mat-option *ngFor="let product of products$ | async" [value]="product.name">
+          <mat-option
+            *ngFor="let product of products$ | async"
+            [value]="product.name"
+          >
             {{ product.name }}
           </mat-option>
         </mat-autocomplete>
-        <input formControlName="name" placeholder="Name" [matAutocomplete]="productsAuto" required matInput />
+        <input
+          formControlName="name"
+          placeholder="Name"
+          [matAutocomplete]="productsAuto"
+          required
+          matInput
+        />
         <mat-error>The name is not valid</mat-error>
       </mat-form-field>
     </div>
@@ -18,6 +27,17 @@
         <mat-hint> Price should be between 1 and 10000 </mat-hint>
       </mat-form-field>
     </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Categories</mat-label>
+        <mat-select multiple>
+          <mat-option *ngFor="let category of categories" [value]="category">
+            {{ category }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <mat-checkbox color="primary" [checked]="isChecked">Check me</mat-checkbox>
     <div>
       <div>
         <button

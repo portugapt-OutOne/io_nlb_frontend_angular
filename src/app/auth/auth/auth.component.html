@@ -1,14 +1,14 @@
 <button
-[hidden]="authService.isLoggedIn"
-(click)="authService.login().subscribe()"
-class="rounded-full"
->Login</button>
+  mat-raised-button
+  [hidden]="authService.isLoggedIn"
+  (click)="authService.login().subscribe()"
+>
+  Login
+</button>
 <button
-[hidden]="!authService.isLoggedIn"
-(click)="authService.logout()"
-class= "rounded-full"
->Logout</button>
-<button
-(click)="authService.register()"
-class= "rounded-full"
->Register</button>
+  mat-raised-button
+  [hidden]="!authService.isLoggedIn"
+  (click)="authService.logout()"
+>
+  Logout
+</button>
