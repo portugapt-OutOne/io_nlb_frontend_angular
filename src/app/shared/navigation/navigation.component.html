@@ -1,3 +1,33 @@
-<p>navigation works!</p>
+<!-- <div id="navBar" class="flex flex-row pt-4 pb-4">
+  <div class="basis-2/12 flex-none"></div>
+  <div id="navBarElements" class="basis-2/12 grow">
+    <nav>
+      <button (click)="toggleDarkMode()">Toggle Dark Mode</button>
+    </nav>
+  </div>
+  <div class="basis-2/12 shrink"></div>
+</div> -->
 
-<button (click)="toggleDarkMode()">Toggle Dark Mode</button>
+<!-- <div id="navBar">
+  <div></div>
+  <div id="navBarElements">
+    <nav>
+      <button (click)="toggleDarkMode()">Toggle Dark Mode</button>
+    </nav>
+  </div>
+  <div></div>
+</div> -->
+
+<div class="py-4">
+<header class="dark:bg-violet-300 dark:bg-opacity-50 dark:text-opacity-100 dark:text-slate-900  rounded-3xl">
+  <div class="grid grid-cols-6 p-4">
+    <div class="col-start-1 col-end-2 logo">Logo</div>
+    <nav class="col-start-3 col-end-6">
+      <a href="#" class="mx-2">Home</a>
+      <a href="#" class="mx-2">About</a>
+      <a href="#" class="mx-2">Contact</a>
+      <button (click)="toggleDarkMode()">Toggle Dark Mode</button>
+    </nav>
+  </div>
+</header>
+</div>

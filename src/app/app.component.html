@@ -1,5 +1,49 @@
+<!-- <div class="container mx-auto px-4 bg-white dark:bg-zinc-900 dark:text-gray-200">
 
-<div class="bg-white dark:bg-zinc-900 dark:text-gray-200">
   <app-navigation></app-navigation>
-</div>
 
+</div>
+ -->
+
+<div class="container mx-auto px-4">
+  <div class="grid grid-cols-12 grid-rows-5 gap-4">
+    <!-- Header -->
+    <div id="headerContent" class="col-start-2 col-span-10 row-start-1 row-span-1">
+      <app-navigation></app-navigation>
+
+    </div>
+    <div id="mainContent-sideBar"
+      class="col-start-2 col-span-2 row-start-2 row-span-2 box-border border-2 dark:border-slate-950 dark:border-opacity-25 rounded-3xl ">
+      <div class="flex justify-center p-2">
+        <!-- Left sidebar -->
+        <aside>
+          hello
+          <!-- Sidebar content -->
+        </aside>
+      </div>
+
+    </div>
+
+    <div class="col-start-4 col-span-3 row-start-2 row-span-1 dark:bg-slate-600 dark:bg-opacity-75">Breadcrums</div>
+
+    <div id="mainContent-routes"
+      class="row-start-3 row-span-2 col-start-4 col-span-8 dark:bg-slate-600 dark:bg-opacity-75">
+      <!-- Main content area -->
+      <section>
+        hello2
+        <!-- Main content goes here -->
+      </section>
+    </div>
+
+
+    <div id="footerContent" class="col-start-2 col-span-10 row-start-5 row-span-1 justify-center">
+      <div class="flex justify-center">
+        <!-- Footer -->
+        <footer class="">
+          <p>&copy; 2023 - My Website</p>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+</div>
