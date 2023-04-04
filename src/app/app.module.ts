@@ -6,7 +6,7 @@ import { MaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
 
-import { NavigationComponent } from './shared/navigation/navigation.component';
+import { NavigationModule } from './shared/navigation/navigation.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { NavigationComponent } from './shared/navigation/navigation.component';
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    NavigationComponent,
+    NavigationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
