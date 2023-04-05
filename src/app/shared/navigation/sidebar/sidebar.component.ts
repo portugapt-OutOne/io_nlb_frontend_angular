@@ -1,4 +1,4 @@
-import { Component, HostListener, ElementRef, Renderer2, Output  } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
