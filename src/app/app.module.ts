@@ -7,6 +7,7 @@ import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 
 import { NavigationModule } from './shared/navigation/navigation.module';
+import { GamesdisplayModule } from './gamesdisplay/gamesdisplay.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { NavigationModule } from './shared/navigation/navigation.module';
     AppRoutingModule,
     MaterialModule,
     NavigationModule,
+    GamesdisplayModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
