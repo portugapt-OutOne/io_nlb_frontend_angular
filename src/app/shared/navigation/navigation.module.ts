@@ -24,6 +24,7 @@ import { DefaultContentComponent } from './default-content/default-content.compo
   exports: [
     NavigationComponent,
     SidebarComponent,
+    DefaultContentComponent,
   ]
 })
 export class NavigationModule { }
